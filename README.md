@@ -433,8 +433,6 @@ zsh-abbr has commands to add, rename, and erase abbreviations; to add abbreviati
 
 ### Configuration variables
 
-In addition to the following, setting `NO_COLOR` (regardless of its value) will disable color output. See https://no-color.org/.
-
 Variable | Type | Use | Default
 ---|---|---|---
 `ABBR_AUTOLOAD` | integer | If non-zero, automatically account for updates to the user abbrevations file (see [Storage and manual editing](#storage-and-manual-editing)) | 1
@@ -442,11 +440,13 @@ Variable | Type | Use | Default
 `ABBR_DEFAULT_BINDINGS` | integer | If non-zero, add the default bindings (see [Bindings](#bindings)) | 1
 `ABBR_DRY_RUN` | integer | If non-zero, use dry run mode without passing `--dry-run` | 0
 `ABBR_FORCE` | integer | If non-zero, use force mode without passing `--force` (see [`add`](#add)) | 0
+`ABBR_NO_COLOR` | integer | If non-zero, disable color output | 0
 `ABBR_PRECMD_LOGS` | interger | If non-zero, support precmd logs, for example to warn that a deprecated widget was used | 1
 `ABBR_QUIET` | integer | If non-zero, use quiet mode without passing `--quiet` | 0
 `ABBR_QUIETER` | integer | If non-zero, use quieter mode without passing `--quieter` | 0
-`ABBR_TMPDIR` | String | Path to the directory temporary files are stored in. _Ends in `/`_ | `${TMPDIR:-/tmp/}zsh-abbr/}` *
+`ABBR_TMPDIR` | String | Path to the directory temporary files are stored in. _Ends in `/`_ | `${${TMPDIR:-/tmp}%/}/zsh-abbr/` *
 `ABBR_USER_ABBREVIATIONS_FILE` | String | Path to the file user abbreviation are stored in (see [Storage and manual editing](#storage-and-manual-editing)) | `$HOME/.config/zsh/abbreviations` **
+`NO_COLOR` | mixed | If set, disable color output in abbr and other supporting software. See https://no-color.org/ | Not set
 
 \* If changing this, you may want to delete the default directory.
 

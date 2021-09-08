@@ -24,6 +24,9 @@ typeset -gi ABBR_DRY_RUN=${ABBR_DRY_RUN:-0}
 # Behave as if `--force` was passed? (default false)
 typeset -gi ABBR_FORCE=${ABBR_FORCE:-0}
 
+# Behave as if `--quieter` was passed? (default false)
+typeset -gi ABBR_NO_COLOR=${ABBR_NO_COLOR:-0}
+
 # Enable logging after commands, for example to warn that a deprecated widget was used?
 typeset -gi ABBR_PRECMD_LOGS=${ABBR_PRECMD_LOGS:-1}
 
@@ -64,7 +67,7 @@ _abbr() {
     # (( ${+DEPRECATED_VAL} )) && _abbr_warn_deprecation DEPRECATED_VAL VAL
     # VAL=$DEPRECATED_VAL
 
-    if ! _abbr_no_color; then
+    if (( ! ABBR_NO_COLOR )) && ! _abbr_no_color; then
       error_color="$fg[red]"
       success_color="$fg[green]"
       warn_color="$fg[yellow]"
@@ -1069,7 +1072,7 @@ _abbr_init() {
 
   job_name=$(_abbr_job_name)
 
-  if ! _abbr_no_color; then
+  if (( ! ABBR_NO_COLOR )) && ! _abbr_no_color; then
     'builtin' 'autoload' -U colors && colors
   fi
 
